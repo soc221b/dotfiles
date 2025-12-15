@@ -40,7 +40,11 @@ load-nvmrc() {
   elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
     echo "Reverting to nvm default version"
     nvm use default
+	else
+    nvm use default
   fi
+
+	nvm use --silent $(node "$HOME/.detect-node-version.js") || nvm install $(node "$HOME/.detect-node-version.js") && nvm use --silent $(node "$HOME/.detect-node-version.js")
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
@@ -62,7 +66,8 @@ source $HOME/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export VSCODE_PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export PATH="$VSCODE_PATH$PATH"
 
-# docker
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/ernest_chang/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
+# End of Docker CLI completions
