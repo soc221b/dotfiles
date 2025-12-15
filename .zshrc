@@ -5,6 +5,7 @@ export EDITOR='vim'
 
 
 # brew
+brew --version > /dev/null || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ## starship
