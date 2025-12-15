@@ -42,10 +42,6 @@ source $HOME/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # vim
 [ ! -d "$HOME/.vim/bundle/Vundle.vim" ] && git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 
-# git
-export GPG_TTY=$(tty)
-
-
 # code Visual Studio Code
 export VSCODE_PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export PATH="$VSCODE_PATH$PATH"
