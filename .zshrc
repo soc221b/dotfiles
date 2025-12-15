@@ -18,9 +18,6 @@ source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-se
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-## node
-which node > /dev/null || curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-
 ## nvm
 [ ! -d "$HOME/.nvm" ] && git clone https://github.com/nvm-sh/nvm.git $HOME/.nvm && . "$NVM_DIR/nvm.sh" && nvm install --lts && nvm use --lts
 export NVM_DIR="$HOME/.nvm"
