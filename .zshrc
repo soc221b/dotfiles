@@ -19,10 +19,10 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 ## nvm
-[ ! -d "$HOME/.nvm" ] && git clone https://github.com/nvm-sh/nvm.git $HOME/.nvm && . "$NVM_DIR/nvm.sh" && nvm install --lts && nvm use --lts
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ ! -d "$HOME/.nvm" ] && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 autoload -U add-zsh-hook
 load-nvmrc() {
   local nvmrc_path
@@ -40,8 +40,10 @@ load-nvmrc() {
   elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
     echo "Reverting to nvm default version"
     nvm use default
-	else
-    nvm use default
+  elif [ "$(nvm version)" != "$(nvm version default)" ]; then
+		nvm install --lts
+		nvm alias default node
+		nvm use default
   fi
 
 	nvm use --silent $(node "$HOME/.detect-node-version.js") || nvm install $(node "$HOME/.detect-node-version.js") && nvm use --silent $(node "$HOME/.detect-node-version.js")
@@ -61,13 +63,3 @@ source $HOME/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # vim
 [ ! -d "$HOME/.vim/bundle/Vundle.vim" ] && git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
-
-# code Visual Studio Code
-export VSCODE_PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-export PATH="$VSCODE_PATH$PATH"
-
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/ernest_chang/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
